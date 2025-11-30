@@ -1,0 +1,157 @@
+
+SLIDE 1 REPORT
+Enhancing Fraud Detection with Data Augmentation
+Initial Model Comparison & Operational Impact
+Date: November 21, 2025
+
+------------------------------------------------------------
+SLIDE 2 Agenda
+1. Executive summary
+2. Dataset overview & problem statement
+3. Data cleaning & preparation
+4. Modelling approach (baseline vs augmentation)
+5. Experimental setup and evaluation metrics
+6. Results and operational impact
+7. Interpretation & trade-offs
+8. Next steps and risk mitigation
+9. Appendices
+
+------------------------------------------------------------
+SLIDE 3 
+Executive Summary
+Objective: Improve fraud detection by resolving extreme class imbalance using data augmentation (SMOTE, ADASYN, GAN exploration).
+Approach: Compare baseline (no augmentation) vs SMOTE-augmented models using identical evaluation datasets.
+Outcome: SMOTE increases recall (fraud detection) from ~59% to ~90%, reducing missed frauds by 75%.
+Recommendation: Continue augmentation testing, threshold tuning, and evaluate RF/GBM models.
+
+------------------------------------------------------------
+SLIDE 4 
+Dataset Overview
+Dataset: creditcard.csv
+Total records: 284,807
+Genuine transactions (Class 0): 284,315 (99.827%)
+Fraudulent transactions (Class 1): 492 (0.173%)
+Challenge: Severe imbalance; accuracy is misleading.
+Correct metrics: Recall, Precision, F1, AUC-PR, Confusion Matrix.
+
+------------------------------------------------------------
+SLIDE 5 
+Data Cleaning & Quality Checks
+Performed in dataset_analysis.ipynb:
+- Checked for nulls → none significant.
+- Checked duplicates → removed if any.
+- Verified column types.
+- Ensured Class is integer.
+- Prepared Time and Amount for scaling.
+Dataset saved as: creditcard_full.csv
+
+------------------------------------------------------------
+SLIDE 6 
+Key Insight:
+The dataset is clean and usable, but the class imbalance is severe. 
+A conventional model trained on this data will achieve high accuracy 
+but fail to detect fraud meaningfully, since simply predicting 
+“Genuine” almost always would yield >99% accuracy. 
+This is unacceptable for fraud operations and confirms the need for augmentation strategies.
+
+------------------------------------------------------------
+SLIDE 7 
+Modelling Strategy with Two experiments:
+Model A: Baseline Logistic Regression (imbalanced data)
+Model B: SMOTE-Augmented Logistic Regression (balanced training data)
+Purpose: Isolate the effect of augmentation.
+
+Upcoming: Random Forest, GBM, ADASYN, CTGAN.
+
+------------------------------------------------------------
+SLIDE 8 
+Evaluation Setup
+- Stratified 80/20 split
+- Test set untouched during augmentation
+Test set:
+Genuine: 56,864
+Fraud: 98
+Metrics:
+Accuracy, Precision, Recall, F1, AUC-ROC, AUC-PR
+Operational Counts: TP, FP, FN
+
+------------------------------------------------------------
+SLIDE 9 
+Results (Baseline vs SMOTE)
+| Metric | Baseline | SMOTE | Change |
+Accuracy: 99.91% → 99.66% (slightly down)
+Recall (Fraud): 59.2% → 89.8% (major improvement)
+Precision (Fraud): 86.6% → 43.1% (down)
+F1 Score: 0.70 → 0.58 (down)
+AUC-ROC: 0.969 → 0.972 (slightly up)
+AUC-PR: 0.751 → 0.759 (slightly up)
+
+Operational Impact:
+TP: 58 → 88 (+30 detected frauds)
+FN: 40 → 10 (−30 missed frauds)
+FP: 9 → 115 (+106 alerts)
+
+------------------------------------------------------------
+SLIDE 10  
+Confusion Matrices
+Baseline:
+[[56855, 9],
+ [40,   58]]
+
+SMOTE:
+[[56749, 115],
+ [10,    88]]
+
+------------------------------------------------------------
+SLIDE 11 
+Business Impact Analysis
+SMOTE reduces missed fraud by 75%.
++30 more frauds detected.
+Operational trade-off: +106 additional alerts.
+Given financial/reputational cost of fraud, this trade-off is favorable.
+
+------------------------------------------------------------
+SLIDE 12 
+Why Precision Dropped & How to Improve It
+Reasons:
+- Synthetic samples broaden fraud boundaries → higher FP
+Mitigations:
+- Threshold tuning
+- Stronger models (RF, GBM)
+- Advanced augmentation (ADASYN, CTGAN)
+- Hybrid rule-based + ML scoring
+
+------------------------------------------------------------
+SLIDE 13 
+Augmented Model: High Recall, Improved Protection
+The SMOTE-enhanced model identifies 88 of the 98 fraud cases, reducing missed fraud by 75%. 
+This demonstrates a substantial reduction in risk exposure.
+
+------------------------------------------------------------
+SLIDE 14 
+Risks:
+- Synthetic bias
+- Analyst overload
+- Drift or performance decay
+
+Mitigation:
+- Validate synthetic data statistically
+- Threshold tuning before deployment
+- Shadow mode deployment
+- Governance & retraining plan
+
+------------------------------------------------------------
+SLIDE 15 
+Model Testing
+Complete the same baseline vs. augmented evaluation for additional algorithms 
+(Random Forest, Gradient Boosting). 
+The goal is to improve precision while maintaining high recall.
+
+------------------------------------------------------------
+SLIDE 16 — Summary
+Augmentation significantly improves fraud capture.
+Precision loss manageable with threshold tuning and alternate models.
+Recommended: Continue development, prepare for pilot deployment.
+
+------------------------------------------------------------
+
