@@ -1,0 +1,139 @@
+-------------------------------------------------------------------------------------------
+Slide 1 — Title Slide
+
+Coleridge Initiative — Dataset Discovery & NLP Modeling Project
+Author: Tamambang Nji Fru Duna
+Date: 6 Dec 2025
+
+--------------------------------------------------------------------------------------------
+Slide 2 — Project Overview
+
+Goal: Build an NLP model that identifies research datasets referenced in academic publications.
+
+Source: From Kaggle Coleridge Initiative dataset.
+
+Deliverables: EDA, cleaned dataset, embeddings, model training, metrics, automated presentation.
+
+
+-----------------------------------------------------------------------------------------------
+Slide 3 — Data Sources
+
+Provided Kaggle dataset:
+
+train.csv — text + dataset labels
+
+documents/ — scientific publications
+
+Additional metadata when needed.
+
+Tools used: Python, spaCy, scikit-learn, Pandas.
+
+
+-------------------------------------------------------
+Slide 4 — Data Processing Pipeline
+
+Load text + labels
+
+Clean text (lowercase, punctuation removal, stopwords)
+
+Tokenization (spaCy)
+
+Frequency extraction
+
+Embedding generation (TF-IDF)
+
+Train ML models
+
+Evaluate and export results
+
+
+--------------------------------------------------
+Slide 5 — Exploratory Data Analysis
+
+Word frequency charts
+
+Document length distribution
+
+Common dataset names
+
+Visualization tools:
+
+Matplotlib
+
+WordCloud
+
+spaCy NER patterns
+
+
+---------------------------------------
+Slide 6 — NLP Models Used
+
+1. Logistic Regression (Baseline)
+
+Simple, fast, strong performance with TF-IDF.
+
+2. sep-CNN (Sentence-piece CNN)
+
+Convolutional model for text with subword tokens.
+
+Good for short phrases referencing datasets.
+
+3. RNN-based Models
+
+BiLSTM — reads text both forward & backward.
+
+GRU — memory-efficient RNN variant.
+
+
+-------------------------------------
+Slide 7 — Model Training Workflow
+
+Split dataset using train/test split
+
+Convert text to TF-IDF vectors
+
+Train baseline ML model
+
+Evaluate using precision, recall, F1
+
+Save predictions for presentation generation
+
+---------------------------------------------
+Slide 8 — Model Performance
+
+(Replace with your own metrics from notebook)
+Example metrics:
+
+Precision: 0.87
+
+Recall: 0.82
+
+F1 Score: 0.84
+
+Baseline logistic regression performed the strongest.
+
+-------------------------------------------------------
+Slide 9 — Example Predictions
+
+Text: “We used the National Health and Nutrition Examination Survey (NHANES) dataset…”
+Predicted Dataset: NHANES
+
+-----------------------------------------------------
+Slide 10 — Project Deliverables
+
+✔ Cleaned dataset
+✔ EDA notebook
+✔ NLP model training notebook
+✔ Visualization outputs
+✔ Auto-generated report & presentation
+
+---------------------------------------------------------
+Slide 11 — Next Steps
+
+Try BERT embeddings
+
+Add spaCy custom NER training
+
+Deploy as an API (FastAPI + Docker)
+
+Build a Streamlit frontend
