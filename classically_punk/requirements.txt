@@ -1,0 +1,11 @@
+numpy>=1.21
+scipy
+pandas
+matplotlib
+librosa>=0.9
+soundfile
+scikit-learn
+joblib
+python-pptx
+tqdm
+seaborn
