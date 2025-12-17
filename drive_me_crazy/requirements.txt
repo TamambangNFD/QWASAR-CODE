@@ -1,0 +1,6 @@
+Pandas
+Sklearn
+Seaborn
+Networkx
+Spacy
+Torch
